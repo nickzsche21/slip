@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SLIP — find the line where the math breaks</title>
+<meta name="description" content="Paste a derivation — yours, a textbook's, an AI's. SLIP checks every step and circles the line where it breaks, with the values that prove it.">
+<meta property="og:title" content="SLIP — find the line where the math breaks">
+<meta property="og:description" content="Every “proof” that 1 = 2 has one bad line. So does the AI's working. Paste it and the red pen finds it.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fbfaf5'/%3E%3Cpath d='M7 17l6 6L25 9' fill='none' stroke='%23d7261e' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="logo">SLIP</span>
+    <span class="tag">find the line where the math breaks</span>
+  </div>
+  <a class="src" href="https://github.com/nickzsche21/slip">source</a>
+</header>
+
+<main>
+  <p class="lede">Every “proof” that 1 = 2 has exactly one bad line. So does a wrong answer — yours, the textbook’s, or the AI’s. Write the working one step per line, and the red pen finds it.</p>
+  <nav id="gallery" class="gallery" aria-label="Examples"></nav>
+
+  <div class="desk">
+    <section class="pad">
+      <div class="pad-head"><span>your working</span><div id="keys" class="keys"></div></div>
+      <textarea id="work" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Your working, one step per line"></textarea>
+      <p class="hint">One step per line. <b>Let a = b</b> sets an assumption, <b>x &gt; 0</b> a condition, a line starting with <b>=</b> continues the one above. Words around the math are ignored. e, i and π are constants.</p>
+    </section>
+
+    <section class="paper" aria-live="polite">
+      <p id="verdict" class="verdict"></p>
+      <div id="sheet" class="sheet"></div>
+      <div class="paper-foot"><span id="method" class="method"></span><button id="share" class="share">share this</button></div>
+    </section>
+  </div>
+
+  <section class="how">
+    <div>
+      <h2>How it checks</h2>
+      <p>A line made of expressions — <i>(x + 1)² = x² + 2x + 1</i> — has to hold for every value. SLIP evaluates both sides at dozens of sampled values, in complex numbers, after substituting your assumptions. One value where the sides disagree is enough, and that value is shown as the evidence.</p>
+      <p>A line that is an equation in one unknown — <i>x² = 4</i> — is followed by its solutions instead. Each step should keep exactly the same ones. A step that loses one (dividing by <i>x</i>, taking √) is an error; a step that gains one (squaring) gets a question mark, and the final answer is checked against the original question.</p>
+    </div>
+    <div>
+      <h2>Why it can name the mistake</h2>
+      <p>When a step is wrong, SLIP tries the usual suspects: both sides divided by something that is zero, square roots taken without ±, √a·√b = √(ab) used on negatives, √(x²) treated as x, a term moved across = without changing sign. If the two sides differ by a short polynomial it fits it — “the sides differ by 2ab” — which is how a missing middle term shows up.</p>
+      <p>Prompted by October’s argument about AI-produced mathematics: checking is now the bottleneck, not writing.</p>
+    </div>
+    <div>
+      <h2>What it is not</h2>
+      <p>A sampled test, not a proof. A step that held at every sampled value could, in principle, fail elsewhere — though for the algebra people write, a false step fails almost everywhere. Solutions are found numerically, between −100 and 100. No calculus, no inequalities between steps, no proofs in words. Nothing you type leaves this page.</p>
+    </div>
+  </section>
+</main>
+<footer>MIT · <a href="https://github.com/nickzsche21/slip">github.com/nickzsche21/slip</a></footer>
+<script src="app.js"></script>
+</body>
+</html>
