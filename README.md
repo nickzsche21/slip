@@ -7,7 +7,7 @@ or the AI’s. Write the working one step per line and SLIP marks it like return
 ticks on the lines that hold, a red circle round the one that doesn’t, the reason in the margin,
 and the values that prove it.
 
-**Live:** (deploying)
+**Live:** https://slip-pi-murex.vercel.app
 
 ---
 
